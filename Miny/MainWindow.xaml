@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:Miny"
         mc:Ignorable="d"
         Title="Minesweeper" Height="450" Width="800">
-    <Grid>
+    <Grid Background="LightGray">
         <Grid.RowDefinitions>
-            <RowDefinition Height="75" />
+            <RowDefinition Height="95" />
             <RowDefinition Height="5" />
             <RowDefinition />
         </Grid.RowDefinitions>
@@ -22,8 +22,11 @@
         <Label BorderBrush="Gray" BorderThickness="3" FontSize="20" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" Foreground="Red" Background="Black" Height="50" Width="100">99</Label>
         <Label Name="Timer" BorderBrush="Gray" BorderThickness="3" FontSize="20" Grid.Column="2" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" Foreground="Red" Background="Black" Height="50" Width="100">00:00</Label>
         <Separator Grid.ColumnSpan="3" Grid.Row="1" />
-        
-        
+
+        <Grid Grid.Row="2"  Grid.ColumnSpan="3" Name="Field">
+        </Grid>
+
+
 
 
     </Grid>
