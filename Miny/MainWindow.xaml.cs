@@ -35,7 +35,8 @@ namespace Miny
         int[] bombCol = new int[99];
         public MainWindow()
         {
-            InitializeComponent();        
+            InitializeComponent();
+            BombGen();
             Grid Field = new Grid();
             dt.Tick += new EventHandler(Time);
             dt.Interval = new TimeSpan(0, 0, 0, 0, 1);
@@ -152,22 +153,11 @@ namespace Miny
 
                 }
                 else
-                    CloseBomb();
-                    _btn.Content = "xd";
                     _btn.Background = Brushes.Green;
-                     
                 {
                   // MessageBox.Show("řádek: " + _row + " sloupec: " + _column);
                 }            
             }       
-        }
-        /////////////////
-        //CHECK CLOSE BOMB
-        public void CloseBomb()
-        {
-           
-
-
         }
 
     }
