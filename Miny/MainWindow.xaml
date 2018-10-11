@@ -18,7 +18,7 @@
             <ColumnDefinition Width="125" />
         </Grid.ColumnDefinitions>
 
-        <Button Name="btn" Background="LightGray" Height="50" Width="50" Grid.Column="1" BorderBrush="Gray" BorderThickness="3" Click="Start_button"> START </Button>
+        <Button Name="startBtn" Background="LightGray" Height="50" Width="50" Grid.Column="1" BorderBrush="Gray" BorderThickness="3" Click="Start_button"> START </Button>
         <Label BorderBrush="Gray" BorderThickness="3" FontSize="20" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" Foreground="Red" Background="Black" Height="50" Width="100">99</Label>
         <Label Name="Timer" BorderBrush="Gray" BorderThickness="3" FontSize="20" Grid.Column="2" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" Foreground="Red" Background="Black" Height="50" Width="100">00:00</Label>
         <Separator Grid.ColumnSpan="3" Grid.Row="1" />

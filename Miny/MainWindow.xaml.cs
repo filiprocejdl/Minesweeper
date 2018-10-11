@@ -30,11 +30,12 @@ namespace Miny
         int col = 0;
         int x = 16;
         int y = 30;
-        int[] bombRow = { 1, 3, 5, 7, 9 };
-        int[] bombCol = { 1, 3, 5, 7, 9 };
+        int bombs = 99;
+        int[] bombRow = new int[99];
+        int[] bombCol = new int[99];
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();        
             Grid Field = new Grid();
             dt.Tick += new EventHandler(Time);
             dt.Interval = new TimeSpan(0, 0, 0, 0, 1);
@@ -59,13 +60,13 @@ namespace Miny
                 sw.Start();
                 dt.Start();
                 clicked = true;
-                btn.Content = "STOP";
+                startBtn.Content = "STOP";
             } else
             {
                 sw.Reset();
                 Timer.Content = "00:00";
                 clicked = false;
-                btn.Content = "START";
+                startBtn.Content = "START";
             }
             
 
@@ -109,34 +110,63 @@ namespace Miny
         //BOMB GENERATOR
         public void BombGen()
         {
+
+
             Random rnd = new Random();
 
-            int bombY = rnd.Next(x);
-            int bombX = rnd.Next(x);
+            for (int i = 0; i < bombs; i++)
+            {
+                bombRow[i] = rnd.Next(0,29);
+                bombCol[i] = rnd.Next(0,15);
+            }
 
-        }
+            
+
+
+        }      
         /////////////////
-        //CHECK
+        //CHECK BOMB/SAVE
         void myButton_Click(object sender, RoutedEventArgs e)
         {
-           // bombRow = 0;
-           // bombCol = 0;
 
-             Button _btn = sender as Button;
+
+            Button _btn = sender as Button;
             int _row = (int)_btn.GetValue(Grid.RowProperty);
             int _column = (int)_btn.GetValue(Grid.ColumnProperty);
 
-            if ((_row == bombRow[0]) & (_column == bombCol[0]))
+            //_btn.MouseRightButtonDown += MouseRightButtonDown.Test();
+
+
+            for (int i = 0; i < bombCol.Length; i++)
             {
-                sw.Reset();
-                Timer.Content = "00:00";
-                clicked = false;
-                btn.Content = "START";
-                MessageBox.Show("you lost and played " + currentTime);
-            } else
-            {
-                //MessageBox.Show("řádek: " + _row + " sloupec: " + _column);
-            }
+                if ((_row == bombRow[i]) & (_column == bombCol[i]))
+                {
+                    sw.Reset();
+                    Timer.Content = "00:00";
+                    clicked = false;
+                    startBtn.Content = "START";
+                    _btn.Background = Brushes.Red;
+                    MessageBox.Show("you lost and played " + currentTime);
+                    Field.RowDefinitions.Clear();
+                    Field.ColumnDefinitions.Clear();
+
+                }
+                else
+                    CloseBomb();
+                    _btn.Content = "xd";
+                    _btn.Background = Brushes.Green;
+                     
+                {
+                  // MessageBox.Show("řádek: " + _row + " sloupec: " + _column);
+                }            
+            }       
+        }
+        /////////////////
+        //CHECK CLOSE BOMB
+        public void CloseBomb()
+        {
+           
+
 
         }
 
