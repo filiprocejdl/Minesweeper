@@ -41,7 +41,6 @@ namespace Miny
             dt.Tick += new EventHandler(Time);
             dt.Interval = new TimeSpan(0, 0, 0, 0, 1);
         }
-
         //STOPWATCH
         void Time(object sender, EventArgs e)
         {
@@ -71,9 +70,7 @@ namespace Miny
                 Timer.Content = "00:00";
                 clicked = false;
                 startBtn.Content = "START";
-            }
-            
-
+            }          
         }
         /////////////////
         //FIELD GENERATOR
@@ -109,7 +106,6 @@ namespace Miny
                     DynamicGrid.Children.Add(Btn);
                 }
             }
-
         } 
         /////////////////
         //BOMB GENERATOR
@@ -148,6 +144,8 @@ namespace Miny
         void myButton_Click(object sender, RoutedEventArgs e)
         {
 
+            int Bombhere = 0;
+            bool NoBomb = true;
 
             Button _btn = sender as Button;
             int _row = (int)_btn.GetValue(Grid.RowProperty);
@@ -164,22 +162,47 @@ namespace Miny
                     startBtn.Content = "START";
                     _btn.Background = Brushes.Red;
                     MessageBox.Show("you lost and played " + currentTime);
-
                 }
                 else
-                    _btn.Background = Brushes.Green;
-                {
-                  // MessageBox.Show("řádek: " + _row + " sloupec: " + _column);
-                }            
+                {                   
+                    for (int j = 0; j < 3; j++)
+                    {
+                        for (int k = 0; k < 3; k++)
+                        {
+                            if ((_row - 1 + j == bombRow[i]) & (_column - 1 + k == bombCol[i]))
+                            {
+                                Bombhere++;
+                                NoBomb = false;
+                            }   
+                            
+
+                        }                        
+                    }
+
+                    
+
+                    if (Bombhere == 0) {
+
+                        _btn.Background = Brushes.DarkGreen;
+                    
+                    } else
+                    {
+                        _btn.Content = Bombhere;
+                        _btn.Background = Brushes.Green;
+                    }
+                        
+                }             
+                
             }       
         }
         /////////////////
         //CHECK WHERE IS MINA
-        void BombWhere()
+        void BombClose()
         {
-        
 
-        
+           
+
+
         }
         /////////////////
         //RIGHT CLICK
