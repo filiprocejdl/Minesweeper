@@ -26,6 +26,7 @@ namespace Miny
         Stopwatch sw = new Stopwatch();
         string currentTime = string.Empty;
         Boolean clicked = false;
+        List<Bomb> Bombs = new List<Bomb>();
         int row = 0;
         int col = 0;
         int x = 16;
@@ -35,8 +36,7 @@ namespace Miny
         int[] bombCol = new int[99];
         public MainWindow()
         {
-            InitializeComponent();
-            BombGen();
+            InitializeComponent();        
             Grid Field = new Grid();
             dt.Tick += new EventHandler(Time);
             dt.Interval = new TimeSpan(0, 0, 0, 0, 1);
@@ -58,9 +58,12 @@ namespace Miny
             if (clicked == false)
             {
                 FieldGen();
+                BombGen();
                 sw.Start();
                 dt.Start();
                 clicked = true;
+                bombs = 99;
+                BombCtr.Content = bombs;
                 startBtn.Content = "STOP";
             } else
             {
@@ -100,6 +103,7 @@ namespace Miny
                 {
                     Button Btn = new Button();
                     Btn.Click += myButton_Click;
+                    Btn.MouseRightButtonDown += (sender, EventArgs) => { RightClick(sender, EventArgs, Field); };
                     Grid.SetRow(Btn, r);
                     Grid.SetColumn(Btn, c);
                     DynamicGrid.Children.Add(Btn);
@@ -111,17 +115,31 @@ namespace Miny
         //BOMB GENERATOR
         public void BombGen()
         {
-
-
             Random rnd = new Random();
+            //bool IsMinaHere = false;
+            int MinaCtr = bombs;
+            int x;
+            int y;
+            
 
+           
             for (int i = 0; i < bombs; i++)
             {
-                bombRow[i] = rnd.Next(0,29);
-                bombCol[i] = rnd.Next(0,15);
+                x = rnd.Next(0, 16);
+                y = rnd.Next(0, 30);
+                if ((x == bombRow[i]) & (y == bombCol[i]))
+                {
+
+                } else
+                {
+                    bombRow[i] = x;
+                    bombCol[i] = y;
+                }
+
             }
 
-            
+
+
 
 
         }      
@@ -135,8 +153,6 @@ namespace Miny
             int _row = (int)_btn.GetValue(Grid.RowProperty);
             int _column = (int)_btn.GetValue(Grid.ColumnProperty);
 
-            //_btn.MouseRightButtonDown += MouseRightButtonDown.Test();
-
 
             for (int i = 0; i < bombCol.Length; i++)
             {
@@ -148,8 +164,6 @@ namespace Miny
                     startBtn.Content = "START";
                     _btn.Background = Brushes.Red;
                     MessageBox.Show("you lost and played " + currentTime);
-                    Field.RowDefinitions.Clear();
-                    Field.ColumnDefinitions.Clear();
 
                 }
                 else
@@ -159,6 +173,33 @@ namespace Miny
                 }            
             }       
         }
+        /////////////////
+        //CHECK WHERE IS MINA
+        void BombWhere()
+        {
+        
 
+        
+        }
+        /////////////////
+        //RIGHT CLICK
+        void RightClick(object sender, RoutedEventArgs e, Grid Field)
+        {
+            Button _btn = sender as Button;
+            int _row = (int)_btn.GetValue(Grid.RowProperty);
+            int _column = (int)_btn.GetValue(Grid.ColumnProperty);
+
+            for (int i = 0; i < bombCol.Length; i++)
+            {
+                if ((_row == bombRow[i]) & (_column == bombCol[i]))
+                {
+                    bombs = bombs - 1;
+                    BombCtr.Content = bombs;
+                }
+            } _btn.Background = Brushes.Blue;
+
+
+
+        }
     }
 }
